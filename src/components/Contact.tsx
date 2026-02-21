@@ -1,8 +1,54 @@
+import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Phone, MapPin, Send } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, CheckCircle2, AlertCircle } from 'lucide-react';
 import { content } from '../content';
 
 const Contact = () => {
+    const [formData, setFormData] = useState({
+        name: '',
+        email: '',
+        subject: '',
+        message: ''
+    });
+    const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        setFormData({ ...formData, [e.target.id]: e.target.value });
+    };
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setStatus('submitting');
+
+        try {
+            const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz3ysmP-mwa2B4eottYg6Sr77VW83831UmTvI8-1df3lFocqRan6qKG7jFAE1oEgKx49w/exec';
+
+            // Convert JSON data to URL Encoded Form Data to bypass CORS preflight
+            const urlEncodedData = new URLSearchParams();
+            Object.entries(formData).forEach(([key, value]) => {
+                urlEncodedData.append(key, value);
+            });
+
+            await fetch(SCRIPT_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: urlEncodedData.toString()
+            });
+
+            setStatus('success');
+            setFormData({ name: '', email: '', subject: '', message: '' });
+
+            setTimeout(() => setStatus('idle'), 5000);
+        } catch (error) {
+            console.error('Error submitting form:', error);
+            setStatus('error');
+            setTimeout(() => setStatus('idle'), 5000);
+        }
+    };
+
     return (
         <section id="contact" className="py-20 bg-surface/30">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -86,13 +132,16 @@ const Contact = () => {
                         viewport={{ once: true }}
                         transition={{ duration: 0.8 }}
                     >
-                        <form className="space-y-6 bg-white/5 p-8 rounded-2xl border border-white/5">
+                        <form onSubmit={handleSubmit} className="space-y-6 bg-white/5 p-8 rounded-2xl border border-white/5">
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                                 <div className="space-y-2">
                                     <label htmlFor="name" className="text-sm text-gray-400">Name</label>
                                     <input
                                         type="text"
                                         id="name"
+                                        required
+                                        value={formData.name}
+                                        onChange={handleChange}
                                         className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/50 transition-all duration-300 placeholder:text-gray-600"
                                         placeholder="John Doe"
                                     />
@@ -102,6 +151,9 @@ const Contact = () => {
                                     <input
                                         type="email"
                                         id="email"
+                                        required
+                                        value={formData.email}
+                                        onChange={handleChange}
                                         className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/50 transition-all duration-300 placeholder:text-gray-600"
                                         placeholder="john@example.com"
                                     />
@@ -113,6 +165,9 @@ const Contact = () => {
                                 <input
                                     type="text"
                                     id="subject"
+                                    required
+                                    value={formData.subject}
+                                    onChange={handleChange}
                                     className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/50 transition-all duration-300 placeholder:text-gray-600"
                                     placeholder="Project Discussion"
                                 />
@@ -123,6 +178,9 @@ const Contact = () => {
                                 <textarea
                                     id="message"
                                     rows={4}
+                                    required
+                                    value={formData.message}
+                                    onChange={handleChange}
                                     className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/50 transition-all duration-300 resize-none placeholder:text-gray-600"
                                     placeholder="Tell me about your project..."
                                 />
@@ -132,13 +190,25 @@ const Contact = () => {
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.95 }}
                                 type="submit"
-                                className="w-full btn-gradient py-4 rounded-xl shadow-lg flex items-center justify-center gap-2 group relative overflow-hidden text-white font-bold text-lg"
+                                disabled={status === 'submitting'}
+                                className={`w-full py-4 rounded-xl shadow-lg flex items-center justify-center gap-2 group relative overflow-hidden text-white font-bold text-lg transition-all ${status === 'success' ? 'bg-green-500 hover:bg-green-600' :
+                                    status === 'error' ? 'bg-red-500 hover:bg-red-600' :
+                                        'btn-gradient'
+                                    } ${status === 'submitting' ? 'opacity-70 cursor-not-allowed' : ''}`}
                             >
                                 <span className="relative z-10 flex items-center gap-2">
-                                    Send Message
-                                    <Send className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                                    {status === 'submitting' ? 'Sending...' :
+                                        status === 'success' ? 'Message Sent!' :
+                                            status === 'error' ? 'Error Sending' :
+                                                'Send Message'}
+
+                                    {status === 'idle' && <Send className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />}
+                                    {status === 'success' && <CheckCircle2 className="w-5 h-5" />}
+                                    {status === 'error' && <AlertCircle className="w-5 h-5" />}
                                 </span>
-                                <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 pointer-events-none" />
+                                {status === 'idle' && (
+                                    <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 pointer-events-none" />
+                                )}
                             </motion.button>
                         </form>
                     </motion.div>
