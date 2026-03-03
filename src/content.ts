@@ -101,5 +101,35 @@ export const content = {
                 message: "Tell me about your project..."
             }
         }
+    },
+    faq: {
+        title: "Frequently Asked Questions",
+        subtitle: "Here are some of the most common questions I get from clients.",
+        items: [
+            {
+                question: "Do you design for music, betting, or gambling-related platforms?",
+                answer: "No. I do not provide UI/UX design services for betting, gambling, or similar platforms. My focus is on ethical, user-centered products that provide real value to users."
+            },
+            {
+                question: "Do you work on projects related to drugs or illegal substances?",
+                answer: "No. I do not accept projects that promote drugs, illegal substances, or related activities."
+            },
+            {
+                question: "Do you design for adult or sexually explicit content?",
+                answer: "No. I do not design interfaces that promote sexual activity, adult content, or explicit material."
+            },
+            {
+                question: "Do you design movie or entertainment promotion websites?",
+                answer: "I do not work on projects that promote movies or entertainment content tied to restricted, adult, or unethical themes. However, general business, SaaS, startup, and product-based platforms are welcome."
+            },
+            {
+                question: "What type of projects do you accept?",
+                answer: "I specialize in UI/UX design for websites and mobile apps such as SaaS platforms, startups, business websites, dashboards, landing pages, and productivity-focused digital products & SEO services to grow your brand"
+            },
+            {
+                question: "What if my project is not listed here?",
+                answer: "Feel free to message me with your project details before placing an order. I’ll review the scope and let you know if it’s a good fit."
+            }
+        ]
     }
 };

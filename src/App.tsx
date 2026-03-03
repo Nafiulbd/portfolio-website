@@ -7,6 +7,7 @@ import Testimonials from './components/Testimonials';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import BackgroundGlow from './components/BackgroundGlow';
+import FAQ from './components/FAQ';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Services />
           <About />
           <Testimonials />
+          <FAQ />
           <Contact />
         </main>
         <Footer />
