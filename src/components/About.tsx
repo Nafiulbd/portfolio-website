@@ -17,7 +17,7 @@ const About = () => {
                         className="relative"
                     >
                         <div className="relative z-10 rounded-2xl overflow-hidden border border-white/10 shadow-2xl group">
-                            <div className="aspect-[4/5] bg-gradient-to-br from-white/5 to-white/10 flex items-center justify-center text-gray-500 relative overflow-hidden">
+                            <div className="bg-gradient-to-br from-white/5 to-white/10 flex items-center justify-center text-gray-500 relative overflow-hidden">
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent z-10 opacity-60 group-hover:opacity-40 transition-opacity duration-500" />
                                 <img
                                     src={content.about.profileImage.src}
@@ -26,7 +26,7 @@ const About = () => {
                                         target.src = content.about.profileImage.fallback;
                                     }}
                                     alt="Profile"
-                                    className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 scale-100 group-hover:scale-105"
+                                    className="w-full h-auto object-contain grayscale group-hover:grayscale-0 transition-all duration-700 scale-100 group-hover:scale-105"
                                 />
                             </div>
                         </div>
