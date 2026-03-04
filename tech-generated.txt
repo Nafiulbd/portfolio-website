@@ -1,5 +1,6 @@
-
-
+Missing: adobephotoshop
+Missing: adobeillustrator
+Missing: css3
 const techStack = [
     {
         name: "Figma",
@@ -90,52 +91,3 @@ const techStack = [
         )
     }
 ];
-
-const TechStack = () => {
-    // Duplicate the array to create a seamless infinite loop effect
-    const duplicatedStack = [...techStack, ...techStack];
-
-    return (
-        <section className="py-10 bg-surface/30 border-y border-white/5 overflow-hidden">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-6">
-                <p className="text-center text-sm font-semibold text-gray-500 uppercase tracking-widest">
-                    POWERING SCALABLE SOLUTIONS & DIGITAL GROWTH WITH
-                </p>
-            </div>
-
-            <div className="relative flex overflow-hidden group [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-128px),transparent_100%)]">
-
-                <div className="flex w-max animate-marquee group-hover:[animation-play-state:paused] items-center">
-                    {duplicatedStack.map((tech, index) => (
-                        <div
-                            key={index}
-                            className="flex items-center gap-3 px-8 text-gray-400 hover:text-primary transition-colors duration-300 min-w-max"
-                        >
-                            <div className="w-8 h-8 flex-shrink-0">
-                                {tech.icon}
-                            </div>
-                            <span className="font-semibold text-lg">{tech.name}</span>
-                        </div>
-                    ))}
-                </div>
-
-                <div aria-hidden="true" className="flex w-max animate-marquee group-hover:[animation-play-state:paused] items-center">
-                    {duplicatedStack.map((tech, index) => (
-                        <div
-                            key={`${index}-dup`}
-                            className="flex items-center gap-3 px-8 text-gray-400 hover:text-primary transition-colors duration-300 min-w-max"
-                        >
-                            <div className="w-8 h-8 flex-shrink-0">
-                                {tech.icon}
-                            </div>
-                            <span className="font-semibold text-lg">{tech.name}</span>
-                        </div>
-                    ))}
-                </div>
-
-            </div>
-        </section>
-    );
-};
-
-export default TechStack;
