@@ -46,7 +46,7 @@ const Navbar = () => {
     ];
 
     return (
-        <nav className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'bg-background/80 backdrop-blur-md py-4 border-b border-white/5 shadow-lg shadow-primary/5' : 'bg-transparent py-6'}`}>
+        <nav className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'bg-[#0a0a0a] bg-opacity-95 backdrop-blur-md py-4 border-b border-white/5 shadow-lg shadow-primary/5' : 'bg-transparent py-6'}`}>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between items-center">
                     <motion.a
@@ -98,7 +98,7 @@ const Navbar = () => {
                         animate={{ opacity: 1, x: 0 }}
                         exit={{ opacity: 0, x: '100%' }}
                         transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                        className="fixed inset-y-0 right-0 w-64 bg-background/95 backdrop-blur-xl border-l border-white/10 shadow-2xl md:hidden z-50 flex flex-col pt-20 px-6"
+                        className="fixed inset-y-0 right-0 w-64 bg-[#0a0a0a] bg-opacity-98 backdrop-blur-2xl border-l border-white/10 shadow-2xl md:hidden z-50 flex flex-col pt-20 px-6"
                     >
                         <div className="flex flex-col space-y-6">
                             {navLinks.map((link, index) => (
