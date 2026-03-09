@@ -21,7 +21,7 @@ const Contact = () => {
         setStatus('submitting');
 
         try {
-            const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz3ysmP-mwa2B4eottYg6Sr77VW83831UmTvI8-1df3lFocqRan6qKG7jFAE1oEgKx49w/exec';
+            const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzaoWBLU1025muPz5eZe4VxePBziFlWcdIhXcCDrsvsXhV_UNExPCFiP0MaziG3sSpn/exec';
 
             // Convert JSON data to URL Encoded Form Data to bypass CORS preflight
             const urlEncodedData = new URLSearchParams();
